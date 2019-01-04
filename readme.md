@@ -60,6 +60,7 @@ Setters:
     setEdge(value: wAppbarEdge) - change bar edge (also bar.edge = value syntax is possible)
 
 Getters:
+
     getWidth(): int - retrieves width of bar (also bar.width syntax is possible)
 	 getEdge(): wAppbarEdge - retrieves edge of bar (also bar.edge syntax is possible)
 	 isShown - flag if bar is shown on screen (for example bar is not shown when fullscreen app is viewed)
@@ -71,7 +72,7 @@ With git on windows:
 
 Without git:
 
-    1. Download and unzip this moudle (by click "Clone or download" button).
+    1. Download and unzip this module (by click "Clone or download" button).
     2. Start a console, change current dir to the folder which include "wAppbar.nimble" file.
        (for example: C:\nim\wAppbar>)
     3. Run "nimble install"
@@ -82,7 +83,7 @@ For Windows XP compatibility, add:
 
 ## Q & A
 ### Q: Why I start this project?
-In the first, I just wanted to write some code to test and prove wNim and winim libraries. Actualy both are
+In the first, I just wanted to write some code to test and prove wNim and winim libraries. Actually both are
 just amazing, very easy to use, very well designed and documented (great work, Ward!) So, in my current project
 I need desktop appbar and find that appbars are some kind tricky and not so easy to maintain - there are
 several unexpected traps and non-documented issues with desktop appbars. I am proud that my wAppbar now works
@@ -91,11 +92,11 @@ like a charm on the last Windows 10 flavor but also even on Windows XP!
 ### Q: Why Nim/wNim?
 I am huge fan of Nim language. After almost ten years developing with Visual C++ now Nim language for me is more 
 than fresh air. My previous projects were Windows GUI applications based on Visual C++/MFC, but in the last several
-years I am looking for better way to develop that kind of software. Actualy I don't like Electron fat 
-application, neither all the new Microsoft .Net technologies that are incompatible with Windows XP/2003. And finaly
+years I am looking for better way to develop that kind of software. Actually I don't like Electron fat 
+application, neither all the new Microsoft .Net technologies that are incompatible with Windows XP/2003. And finally
 I found it - Nim with wNim/winim are my new favorite tools.
 
 ## License
 Read license.txt for more details.
 
-Copyright (c) 2018 Echo Topalov, Zolern. All rights reserved.
+Copyright (c) 2018 Encho Topalov, Zolern. All rights reserved.
