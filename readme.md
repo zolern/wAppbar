@@ -68,7 +68,7 @@ Getters:
 ## Install
 With git on windows:
 
-    nimble install wAppbar
+    nimble install https://github.com/zolern/wAppbar
 
 Without git:
 
