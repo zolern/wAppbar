@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.1.0"
+version       = "0.1.1"
 author        = "Zolern"
 description   = "wAppbar - Nim/wNim\'s implementation of Application Desktop Bar (appbar)"
 license       = "MIT"
