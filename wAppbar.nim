@@ -41,9 +41,9 @@ proc getScreenScale(): float =
 
 proc rectMult(rc: RECT, factor: float = 1.0): RECT =
    # Expand/shrink rect coordinates by scale factor
-   result = RECT(left: LONG(float(rc.left) * factor + 0.5), 
-                 right: LONG(float(rc.right) * factor + 0.5), 
-                 top: LONG(float(rc.top) * factor + 0.5), 
+   result = RECT(left: LONG(float(rc.left) * factor + 0.5),
+                 right: LONG(float(rc.right) * factor + 0.5),
+                 top: LONG(float(rc.top) * factor + 0.5),
                  bottom: LONG(float(rc.bottom) * factor + 0.5))
 
 proc setOnTop(self: wAppbar, onTop: bool) =
@@ -70,19 +70,19 @@ proc appbar_Edge(self: wAppbar): UINT =
 proc appbar_Register(self: wAppbar, register: bool): bool =
    # Register/unregister app bar
    var abd = appbar_Data(self)
-    
+
    if register:
-      # Provide an identifier for notification messages. 
-      abd.uCallbackMessage = wEvent_AppBar; 
-      
-      # Register the appbar. 
+      # Provide an identifier for notification messages.
+      abd.uCallbackMessage = wEvent_AppBar;
+
+      # Register the appbar.
       if SHAppBarMessage(ABM_NEW, &abd) != TRUE:
          return false
-      
+
       abd.lParam = ABS_ALWAYSONTOP
       SHAppBarMessage(ABM_SETSTATE, &abd)
    else:
-      # Unregister the appbar. 
+      # Unregister the appbar.
       SHAppBarMessage(ABM_REMOVE, &abd)
 
    return true
@@ -106,25 +106,25 @@ proc appbar_SetPos(self: wAppbar) =
    of abBottom: abd.rc.top = abd.rc.bottom - abWidth
 
    abd.uEdge = appbar_Edge(self)
-   
+
    let scale = getScreenScale()
 
    # Scale app bar rect (SHAAppBarMessage is not DPI awareness)
    abd.rc = rectMult(abd.rc, scale)
 
-   # Query the system for an approved size and position. 
-   SHAppBarMessage(ABM_QUERYPOS, &abd); 
+   # Query the system for an approved size and position.
+   SHAppBarMessage(ABM_QUERYPOS, &abd);
 
    abd.rc = rectMult(abd.rc, 1 / scale)
 
    # Adjust the rectangle, depending on the edge to which the appbar is anchored.
    case self.mEdge
-   of abLeft: abd.rc.right = abd.rc.left + abWidth 
-   of abRight: abd.rc.left = abd.rc.right - abWidth 
-   of abTop: abd.rc.bottom = abd.rc.top + abWidth 
+   of abLeft: abd.rc.right = abd.rc.left + abWidth
+   of abRight: abd.rc.left = abd.rc.right - abWidth
+   of abTop: abd.rc.bottom = abd.rc.top + abWidth
    of abBottom: abd.rc.top = abd.rc.bottom - abWidth
 
-   # Pass the final bounding rectangle to the shell. 
+   # Pass the final bounding rectangle to the shell.
    abd.rc = rectMult(abd.rc, scale)
    SHAppBarMessage(ABM_SETPOS, &abd);
 
@@ -133,7 +133,7 @@ proc appbar_SetPos(self: wAppbar) =
 
    # Postpone app bar reposition
    self.startTimer(0.05, wTimerBarSetPos)
-   
+
 proc appbar_Activate(self: wAppbar) =
    # notify app bar is activated/inactivated
    var abd = appbar_Data(self)
@@ -144,13 +144,13 @@ proc appbar_Notify(self: wAppbar, wParam: WPARAM, lParam: LPARAM) =
    var abd = appbar_Data(self)
    var uState: UINT
 
-   case wParam
+   case int wParam
    of ABN_STATECHANGE:
       # Check to see if the taskbar's always-on-top state has changed
       # and, if it has, change the appbar's state accordingly.
-      uState = SHAppBarMessage(ABM_GETSTATE, &abd)
+      uState = UINT SHAppBarMessage(ABM_GETSTATE, &abd)
       self.setOnTop((uState and ABS_ALWAYSONTOP) != 0)
-   of ABN_FULLSCREENAPP: 
+   of ABN_FULLSCREENAPP:
       # A full-screen application has started, or the last full-screen
       # application has closed. Set the appbar's z-order appropriately.
       if  lParam != 0: # full-screen app is started
@@ -169,7 +169,7 @@ proc appbar_Notify(self: wAppbar, wParam: WPARAM, lParam: LPARAM) =
       discard
 
 proc show*(self: wAppbar, flag = true) {.inline.} =
-   ## Show/Hide app bar routine 
+   ## Show/Hide app bar routine
    self.mShow = flag
    appbar_SetPos(self)
    appbar_Resize(self)
@@ -219,15 +219,15 @@ proc setFocus*(self: wAppbar) =
 proc final*(self: wAppbar) =
    ## Default finalizer for wWindow.
    wFrame(self).final()
-   
+
 proc delete*(self: wAppbar) =
    ## Unregister app bar and destroys it
    if self.mIsRegistered:
       discard appbar_Register(self, false)
-   
+
    self.mIsRegistered = false
    wFrame(self).delete()
-   
+
 proc init(self: wAppbar, width: int, edge: wAppbarEdge) =
    ## Initialize app bar and register it
    wFrame(self).init(title="", size = (width, width),  style = wPopup or wHideTaskbar)
@@ -245,19 +245,19 @@ proc init(self: wAppbar, width: int, edge: wAppbarEdge) =
          appbar_Activate(self)
       else:
          self.setOnFocus(false)
-   
+
    self.wEvent_AppBar do (event: wEvent):
       appbar_Notify(self, event.wParam, event.lParam)
-   
+
    self.wEvent_Timer do (event: wEvent):
       self.stopTimer(event.timerId)
       let rc = self.mRect
-      
+
       if self.mShow and (self.mOnTop or self.mOnFocus):
          ShowWindow(self.getHandle(), SW_SHOWNA)
          SetWindowPos(self.getHandle(), HWND_TOPMOST, 0, 0, 0, 0, UINT(SWP_NOMOVE or SWP_NOSIZE or SWP_NOACTIVATE))
          MoveWindow(self.getHandle(), rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top, TRUE)
-         
+
          if (event.timerId == wTimerBarOnFocus) and self.mOnFocus:
             SetForegroundWindow(self.getHandle())
             SetActiveWindow(self.getHandle())
@@ -266,7 +266,7 @@ proc init(self: wAppbar, width: int, edge: wAppbarEdge) =
          ShowWindow(self.getHandle(), SW_HIDE)
 
    self.mIsRegistered = appbar_Register(self, true)
-   
+
 proc Appbar*(width: int, edge: wAppbarEdge): wAppbar {.inline.} =
    ## Constructor
    new(result, final)
