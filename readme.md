@@ -1,7 +1,8 @@
 # wAppbar
 
-wAppbar is Nim's Windows GUI (wNim) implementation of Windows Application Desktop Bar (appbar), based on [wnim](https://github.com/khchen/wNim). wAppbar is wNim\'s wFrame extension, all wFrame methods (including layout) 
-are accessible.
+wAppbar is wNim implementation of Windows Application Desktop Bar (appbar), powered by 
+[wnim](https://github.com/khchen/wNim) (Nim's Windows GUI Framework). wAppbar is wNim\'s wFrame extension, 
+all wFrame methods (including layout) are accessible.
 
 ## Code Example
 

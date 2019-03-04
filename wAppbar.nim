@@ -22,7 +22,7 @@ type
       abLeft = 0, abTop, abRight, abBottom
 
    wAppbar = ref object of wFrame
-      mWidth: int
+      mBarWidth: int
       mEdge: wAppbarEdge
       mIsRegistered: bool
       mRect: RECT
@@ -95,7 +95,7 @@ proc appbar_Resize(self: wAppbar) =
 proc appbar_SetPos(self: wAppbar) =
    # Calculate position and size of app bar
    var abd = appbar_Data(self)
-   let abWidth = if self.mShow: LONG(self.mWidth) else: 0
+   let abWidth = if self.mShow: LONG(self.mBarWidth) else: 0
 
    abd.rc = RECT(left: 0, top: 0, right: GetSystemMetrics(SM_CXSCREEN), bottom: GetSystemMetrics(SM_CYSCREEN))
 
@@ -184,13 +184,13 @@ proc isShown*(self: wAppbar): bool {.inline.} =
 
 proc setWidth*(self: wAppbar, width: int) {.inline.}  =
    ## change app bar width
-   self.mWidth = width
+   self.mBarWidth = width
    show(self, self.mShow)
 
-proc getWidth*(self: wAppbar): int  {.inline.} = self.mWidth
+proc getWidth*(self: wAppbar): int  {.inline.} = self.mBarWidth
    ## retrieve app bar width
 
-proc width*(self: wAppbar): int  {.inline.} = self.mWidth
+proc width*(self: wAppbar): int  {.inline.} = self.mBarWidth
    ## property-like syntax (appbar.width)
 
 proc `width=`*(self: wAppbar, value: int) {.inline.}  =
@@ -231,7 +231,7 @@ proc delete*(self: wAppbar) =
 proc init(self: wAppbar, width: int, edge: wAppbarEdge) =
    ## Initialize app bar and register it
    wFrame(self).init(title="", size = (width, width),  style = wPopup or wHideTaskbar)
-   self.mWidth = width
+   self.mBarWidth = width
    self.mEdge = edge
    self.mShow = false
    self.mOnTop = true
