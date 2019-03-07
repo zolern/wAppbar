@@ -100,4 +100,4 @@ I found it - Nim with wNim/winim are my new favorite tools.
 ## License
 Read license.txt for more details.
 
-Copyright (c) 2018 Encho Topalov, Zolern. All rights reserved.
+Copyright (c) 2018-2019 Encho Topalov, Zolern. All rights reserved.
