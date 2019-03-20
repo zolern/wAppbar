@@ -6,9 +6,8 @@
 #====================================================================
 
 ##  wAppbar is Windows Desktop Application Bar, based on wNim Windows Framework
-
 import wNim
-import winim/inc/[shellapi, winuser, wingdi]
+import winim/inc/[windef, shellapi, winuser, wingdi]
 import strformat
 
 const
