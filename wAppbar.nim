@@ -7,8 +7,8 @@
 
 ##  wAppbar is Windows Desktop Application Bar, based on wNim Windows Framework
 import wNim
-import winim/inc/[windef, shellapi, winuser, wingdi]
-import strformat
+import winim/[winimx, utils]
+winimx currentSourcePath()
 
 const
    wEvent_AppBar = wEvent_App + 1

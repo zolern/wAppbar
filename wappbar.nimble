@@ -1,6 +1,6 @@
 # Package
 
-version       = "0.1.5"
+version       = "0.1.9"
 author        = "Zolern"
 description   = "wAppbar - Nim/wNim\'s implementation of Application Desktop Bar (appbar)"
 license       = "MIT"
@@ -8,4 +8,4 @@ skipDirs      = @[]
 
 # Dependencies
 
-requires "nim >= 0.19.0", "winim >= 3.1.1", "kiwi >= 0.1.0", "wnim >= 0.5.0"
+requires "nim >= 0.20.2", "winim >= 3.2.3", "wnim >= 0.9.0"

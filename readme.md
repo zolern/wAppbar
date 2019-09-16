@@ -18,7 +18,9 @@ let button = Button(panel, label="Close", size=(60, 30))
 button.wEvent_Button do ():
    bar.delete()
 
-bar.wEvent_Size do ():
+bar.wEvent_Size do (event: wEvent):
+   panel.setSize(event.getSize)
+
    panel.layout:
       button:
          top == panel.top + 5
