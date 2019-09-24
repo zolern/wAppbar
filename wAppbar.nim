@@ -6,8 +6,8 @@
 #====================================================================
 
 ##  wAppbar is Windows Desktop Application Bar, based on wNim Windows Framework
-import wNim
 import winim/[winimx, utils]
+import wNim/[wApp, wFrame]
 winimx currentSourcePath()
 
 const
